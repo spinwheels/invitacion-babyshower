@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Baby Shower</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .botones {
+            position: absolute;
+            top: 85%; /* Posición vertical de los botones */
+            left: 50%; /* Centrar horizontalmente */
+            transform: translateX(-50%); /* Ajuste fino para centrar */
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espacio entre los botones */
+        }
+        .botones a {
+            display: inline-block;
+            width: 200px; /* Ancho fijo para los botones */
+            height: auto; /* Asegura que el área táctil sea clara */
+            cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+            transition: transform 0.2s ease;
+        }
+        .botones img {
+            width: 100%;
+            height: auto;
+        }
+        .botones a:hover {
+            transform: scale(1.05); /* Efecto de escala al pasar el mouse */
+        }
+
+        /* Ocultar imágenes por defecto */
+        .imagen-movil, .imagen-escritorio {
+            display: none;
+        }
+
+        /* Mostrar imagen vertical en móviles */
+        @media (max-width: 767px) {
+            .imagen-movil {
+                display: block;
+            }
+            .botones {
+                flex-direction: column; /* Botones uno debajo del otro en móviles */
+                gap: 25px;
+                top: 73%; /* Ajuste de posición en móviles (más arriba) */
+            }
+            .botones a {
+                width: 150px; /* Botones más pequeños en móviles */
+            }
+        }
+
+        /* Mostrar imagen horizontal en escritorio */
+        @media (min-width: 768px) {
+            .imagen-escritorio {
+                display: block;
+                width: 100%; /* La imagen ocupa toda la pantalla */
+                height: 100vh; /* Altura completa de la pantalla */
+                object-fit: cover; /* Ajusta la imagen sin distorsionar */
+            }
+            .botones {
+                top: 85%; /* Ajuste de posición en escritorio */
+            }
+        }
+
+        /* Estilos para la sección del mapa */
+        .seccion-mapa {
+            width: 100%;
+            min-height: 100vh; /* Altura mínima de la sección */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent; /* Fondo transparente */
+            position: relative; /* Para posicionar la portada de fondo */
+        }
+        .portada-mapa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Coloca la portada detrás del mapa */
+        }
+        .portada-mapa img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ajusta la imagen sin distorsionar */
+        }
+        .mapa-container {
+            width: 90%; /* Ancho del mapa (ajusta según necesites) */
+            max-width: 500px; /* Ancho máximo del mapa (más pequeño) */
+            height: 300px; /* Altura reducida */
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+            padding: 10px; /* Espacio interno reducido */
+            z-index: 2; /* Coloca el mapa delante de la portada */
+            position: relative; /* Para posicionar el mapa */
+            margin: 0 auto; /* Centrar el contenedor */
+        }
+        .mapa-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Elimina el borde del iframe */
+            border-radius: 10px; /* Bordes redondeados para el mapa */
+        }
+
+        /* Ajustes para móviles */
+        @media (max-width: 767px) {
+            .mapa-container {
+                width: 80%; /* Ancho reducido en móviles */
+                max-width: none; /* Eliminar el ancho máximo en móviles */
+            }
+        }
+
+        /* Estilos para la sección de Confirmar Asistencia */
+        .seccion-confirmar {
+            width: 100%;
+            min-height: 100vh; /* Altura mínima de la sección */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent; /* Fondo transparente */
+            position: relative; /* Para posicionar la portada de fondo */
+        }
+        .portada-confirmar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Coloca la portada detrás del contenido */
+        }
+        .portada-confirmar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ajusta la imagen sin distorsionar */
+        }
+        .confirmar-container {
+            width: 90%; /* Ancho del contenedor (ajusta según necesites) */
+            max-width: 500px; /* Ancho máximo del contenedor */
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+            padding: 20px; /* Espacio interno */
+            z-index: 2; /* Coloca el contenido delante de la portada */
+            position: relative; /* Para posicionar el contenido */
+            text-align: center;
+            margin-top: 20%; /* Ajuste de posición vertical en escritorio */
+            opacity: 0; /* Inicialmente oculto */
+            transform: translateY(20px); /* Desplazamiento inicial */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Transición suave */
+        }
+        .confirmar-container.visible {
+            opacity: 1; /* Mostrar */
+            transform: translateY(0); /* Sin desplazamiento */
+        }
+        .confirmar-container a {
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .confirmar-container img {
+            width: 300px; /* Botón más grande en escritorio */
+            height: auto;
+            transition: transform 0.2s ease;
+        }
+        .confirmar-container img:hover {
+            transform: scale(1.05); /* Efecto de escala al pasar el mouse */
+        }
+
+        /* Ajustes para móviles */
+        @media (max-width: 767px) {
+            .confirmar-container {
+                margin-top: 10%; /* Ajuste de posición vertical en móviles */
+            }
+            .confirmar-container img {
+                width: 200px; /* Botón más grande en móviles */
+            }
+        }
+
+        /* Estilos para el mensaje del mapa (solo en móviles) */
+        .mapa-mensaje {
+            text-align: center;
+            margin-top: 20px; /* Más espacio arriba del texto */
+            font-size: 14px; /* Tamaño de fuente más pequeño */
+            color: #333;
+            display: none; /* Ocultar por defecto */
+        }
+        .mapa-mensaje a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .mapa-mensaje a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mostrar el mensaje solo en móviles */
+        @media (max-width: 767px) {
+            .mapa-mensaje {
+                display: block; /* Mostrar en móviles */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Portada -->
+    <div class="container">
+        <!-- Portada para móviles (9:16) -->
+        <img src="img/portada-movil.jpg" alt="Portada Baby Shower (Móvil)" class="imagen-movil">
+
+        <!-- Portada para escritorio (horizontal) -->
+        <img src="img/portada-escritorio.jpg" alt="Portada Baby Shower (Escritorio)" class="imagen-escritorio">
+
+        <!-- Botones diseñados en Photoshop -->
+        <div class="botones">
+            <!-- Botón de Confirmar Asistencia -->
+            <a href="#seccion-confirmar">
+                <img src="img/botones/confirmar.png" alt="Confirmar Asistencia">
+            </a>
+
+            <!-- Botón de Ubicación -->
+            <a href="#seccion-mapa">
+                <img src="img/botones/ubicacion.png" alt="Ubicación">
+            </a>
+        </div>
+    </div>
+
+    <!-- Sección del Mapa -->
+    <div id="seccion-mapa" class="seccion-mapa">
+        <!-- Portada de fondo -->
+        <div class="portada-mapa">
+            <img src="img/portada-mapa-movil.jpg" alt="Portada Mapa (Móvil)" class="imagen-movil">
+            <img src="img/portada-mapa-escritorio.jpg" alt="Portada Mapa (Escritorio)" class="imagen-escritorio">
+        </div>
+
+        <!-- Mapa Interactivo de Google Maps -->
+        <div class="mapa-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3331.4395528803775!2d-70.5611474!3d-33.38569489999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf3a9e7bc34f%3A0xa8ae31b5dae77065!2sLa%20Cocina%20de%20Javier%20-%20Restaurant!5e0!3m2!1ses-419!2sco!4v1740710713461!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <p class="mapa-mensaje"><a href="https://www.google.com/maps/place/La+Cocina+de+Javier+-+Restaurant/@-33.3856949,-70.5611474,15z/data=!4m6!3m5!1s0x9662cf3a9e7bc34f:0xa8ae31b5dae77065!8m2!3d-33.3856949!4d-70.5611474!16s%2Fg%2F11b8z6z7y1?entry=ttu" target="_blank">Ver en Google Maps</a></p>
+        </div>
+    </div>
+
+    <!-- Sección de Confirmar Asistencia -->
+    <div id="seccion-confirmar" class="seccion-confirmar">
+        <!-- Portada de fondo -->
+        <div class="portada-confirmar">
+            <img src="img/portada-confirmar-movil.jpg" alt="Portada Confirmar Asistencia (Móvil)" class="imagen-movil">
+            <img src="img/portada-confirmar-escritorio.jpg" alt="Portada Confirmar Asistencia (Escritorio)" class="imagen-escritorio">
+        </div>
+
+        <!-- Contenedor de Confirmar Asistencia -->
+        <div class="confirmar-container">
+            <h2>Confirmar Asistencia</h2>
+            <p>Por favor, confirma tu asistencia haciendo clic en el botón.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdkOjC9IdBEnD2vllD0y3H2uo-fxj8GD02dmtauNnBA5lHBqw/viewform?usp=header"_blank">
+                <img src="img/botones/confirmar-form.png" alt="Confirmar Asistencia">
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Desplazamiento suave al hacer clic en el botón de Ubicación
+        document.querySelector('a[href="#seccion-mapa"]').addEventListener('click', function(event) {
+            event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+            const seccionMapa = document.getElementById('seccion-mapa');
+            seccionMapa.scrollIntoView({ behavior: 'smooth' }); // Desplazamiento suave
+        });
+
+        // Desplazamiento suave al hacer clic en el botón de Confirmar Asistencia
+        document.querySelector('a[href="#seccion-confirmar"]').addEventListener('click', function(event) {
+            event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+            const seccionConfirmar = document.getElementById('seccion-confirmar');
+            seccionConfirmar.scrollIntoView({ behavior: 'smooth' }); // Desplazamiento suave
+        });
+
+        // Mostrar la ventana emergente cuando la sección de confirmación sea visible
+        const confirmarContainer = document.querySelector('.confirmar-container');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Mostrar la ventana emergente después de 2 segundos
+                    setTimeout(() => {
+                        confirmarContainer.classList.add('visible');
+                    }, 2000); // Retraso de 2 segundos
+                }
+            });
+        }, { threshold: 0.5 }); // Umbral del 50% de visibilidad
+
+        observer.observe(document.getElementById('seccion-confirmar'));
+    </script>
+</body>
+</html>
