@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicación del Evento</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .mapa-container {
+            width: 80%; /* Ancho del mapa (ajusta según necesites) */
+            max-width: 600px; /* Ancho máximo del mapa */
+            height: auto; /* Altura automática */
+            position: absolute;
+            top: 50%; /* Centrar verticalmente */
+            left: 50%; /* Centrar horizontalmente */
+            transform: translate(-50%, -50%); /* Ajuste fino para centrar */
+            z-index: 2; /* Coloca el mapa delante de la portada */
+            background-color: white; /* Fondo blanco para el mapa */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+        }
+        .mapa-container a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .mapa-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px; /* Bordes redondeados para la imagen */
+        }
+
+        /* Ocultar imágenes por defecto */
+        .imagen-movil, .imagen-escritorio {
+            display: none;
+            position: relative;
+            z-index: 1; /* Coloca la portada detrás del mapa */
+        }
+
+        /* Mostrar imagen vertical en móviles */
+        @media (max-width: 767px) {
+            .imagen-movil {
+                display: block;
+            }
+            .mapa-container {
+                width: 90%; /* Más ancho en móviles */
+            }
+        }
+
+        /* Mostrar imagen horizontal en escritorio */
+        @media (min-width: 768px) {
+            .imagen-escritorio {
+                display: block;
+                width: 100%; /* La imagen ocupa toda la pantalla */
+                height: 100vh; /* Altura completa de la pantalla */
+                object-fit: cover; /* Ajusta la imagen sin distorsionar */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Portada para móviles (9:16) -->
+        <img src="img/portada-mapa-movil.jpg" alt="Portada Mapa (Móvil)" class="imagen-movil">
+
+        <!-- Portada para escritorio (horizontal) -->
+        <img src="img/portada-mapa-escritorio.jpg" alt="Portada Mapa (Escritorio)" class="imagen-escritorio">
+
+        <!-- Mapa estático -->
+        <div class="mapa-container">
+            <a href="https://maps.app.goo.gl/jNgFtduWd9BBrUrc9" target="_blank">
+                <img src="img/mapa-estatico.jpg" alt="Mapa Estático">
+            </a>
+        </div>
+    </div>
+</body>
+</html>
